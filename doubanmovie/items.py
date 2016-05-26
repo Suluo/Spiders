@@ -1,4 +1,12 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+#############################################
+# Description: 
+# File Name: items.py
+# Author:Suluo-Sampson.suluo@gmail.com
+# Last modified: 2016-05-26 18:55:12
+# Python Release:2.7
+###############################################
 
 # Define here the models for your scraped items
 #

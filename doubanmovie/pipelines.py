@@ -1,4 +1,22 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+#############################################
+# Description: 
+# File Name: pipelines.py
+# Author:Suluo-Sampson.suluo@gmail.com
+# Last modified: 2016-05-26 18:55:42
+# Python Release:2.7
+###############################################
+
+import logging
+import logging.handlers
+import logging.config
+import traceback
+import os
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 # Define your item pipelines here
 #
