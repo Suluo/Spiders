@@ -64,7 +64,6 @@ class PachongSpider(Spider):
         del self.duplicatesurl['users']
         del self.duplicatesurl['movies']
 
-
     def start_requests(self):
         yield Request('http://www.douban.com/accounts/login/',
                         meta={'cookiejar':1},
@@ -129,12 +128,12 @@ class PachongSpider(Spider):
             hxs = Selector(response)
             if hxs.xpath('//*[@id="friend"]/h2/span/a/@href').extract():
                 attentionsUrl = hxs.xpath('//*[@id="friend"]/h2/span/a/@href').extract()[0]
-                yield Request(url=attentionsUrl,meta={'cookiejar':response.meta['cookiejar']},callback=self.attentions_parse)
+                yield Request(url=attentionsUrl, meta={'cookiejar':response.meta['cookiejar']}, callback=self.attentions_parse)
             if hxs.xpath('//*[@id="movie"]/h2/span/a[last()]/@href').extract():
                 reviewsUrl = hxs.xpath('//*[@id="movie"]/h2/span/a[last()]/@href').extract()[0]
-                yield Request(url=reviewsUrl,callback=self.reviews_parse)
+                yield Request(url=reviewsUrl, callback=self.reviews_parse)
             notesUrl = hxs.xpath('//*[@id="db-usr-profile"]/div[@class="info"]/ul/li[4]/a/@href').extract()[0]
-            yield Request(url=notesUrl,callback=self.notelist_parse)
+            yield Request(url=notesUrl, callback=self.notelist_parse)
 
         pass
 
@@ -147,14 +146,12 @@ class PachongSpider(Spider):
 
         # print sites
         for site in sites:
-            item['userID'] = re.findall('people/(.+)/contact',response.url)
-
+            item['userID'] = re.findall('people/(.+)/contact', response.url)
             item['attentionID'] = site.xpath('dt/a/@href').re('people/(.+)/$')
-
             item['attentionUrl'] = site.xpath('dt/a/@href').extract()
             yield item
             # print item
-            yield Request(url=item['attentionUrl'][0],meta={'cookiejar':response.meta['cookiejar']},callback=self.parse)
+            yield Request(url=item['attentionUrl'][0],meta={'cookiejar':response.meta['cookiejar']}, callback=self.parse)
 
     def reviews_parse(self,response):
         hxs = Selector(response)
@@ -163,7 +160,6 @@ class PachongSpider(Spider):
 
         sites = hxs.xpath('//*[@class="article"]/div[2]/div[@class="item"]/div[@class="info"]/ul')
         # sites = hxs.xpath('//*[@class="article"]/div[2]/div[@class="item"]/div[@class="info"]')
-
         for site in sites:
             item['userID'] = re.findall('people/(.+)/collect',response.url)
             # print response.url
@@ -188,9 +184,8 @@ class PachongSpider(Spider):
         if hxs.xpath('//*[@class="paginator"]/span[@class="next"]/a/@href').extract():
             nextreviewsUrl = hxs.xpath('//*[@class="paginator"]/span[@class="next"]/a/@href').extract()[0]
             # print nextreviewsUrl
-            yield Request(url=nextreviewsUrl,callback=self.reviews_parse)
+            yield Request(url=nextreviewsUrl, callback=self.reviews_parse)
         pass
-
 
     def movie_parse(self,response):
         if response.url not in self.duplicatesurl['movies']:
@@ -251,14 +246,14 @@ class PachongSpider(Spider):
             yield Request(url=nextnotesUrl,callback=self.notelist_parse)
         pass
 
-    def note_parse(self,response):
+    def note_parse(self, response):
         hxs = Selector(response)
         item = notesItem()
 
         item['noteID'] = re.findall('note/(.+)/$',response.url)
         item['notename'] = hxs.xpath('//*[@class="note-header note-header-container"]/h1/text()').extract()
         item['userID'] = hxs.xpath('//*[@class="note-header note-header-container"]/div/a[1]/@href').re('people/(.+)/$')
-        item.setdefault('notetext',[]).append('\n'.join(hxs.xpath('//*[@id="link-report"]/text()').extract()))
+        item.setdefault('notetext', []).append('\n'.join(hxs.xpath('//*[@id="link-report"]/text()').extract()))
         yield item
         # print item
         pass
