@@ -7,26 +7,24 @@
 # Last modified: 2016-05-26 18:56:44
 # Python Release:2.7
 ###############################################
-
 import logging
 import logging.handlers
 import logging.config
 import traceback
 import os
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 from scrapy import Spider
-from scrapy import Selector,FormRequest
+from scrapy import Selector, FormRequest
 from scrapy.http import Request
 import urllib
 import requests
 import re
-from doubanmovie.items import reviewsItem,moviesItem,attentionsItem,notesItem
+from doubanmovie.items import reviewsItem, moviesItem, attentionsItem, notesItem
 from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
 import time
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 class PachongSpider(Spider):
