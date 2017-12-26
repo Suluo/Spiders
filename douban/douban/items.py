@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 #############################################
-# Description: 
-# File Name: items.py
+# Description:
+# File Name    : items.py
 # Author:Suluo-Sampson.suluo@gmail.com
-# Last modified: 2016-05-26 18:55:12
+# Last Modified: 2017-12-26 18:26:48
 # Python Release:2.7
 ###############################################
 
@@ -14,6 +14,7 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 from scrapy import Item,Field
+from items.doubantest import DoubantestItem
 
 class reviewsItem(Item):
     userID = Field()        #
